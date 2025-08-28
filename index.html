@@ -10,7 +10,6 @@
 </head>
 <body>
 
-  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
     <div class="container">
       <a class="navbar-brand fw-bold" href="#">
@@ -21,7 +20,6 @@
 
   <div class="container py-5">
 
-    <!-- Formulário -->
     <div class="card shadow-lg border-0 mb-4">
       <div class="card-header bg-success text-white">
         <h4 id="form-title" class="mb-0">
@@ -42,7 +40,13 @@
             </div>
             <div class="col-md-3">
               <label class="form-label">Plano</label>
-              <input type="text" id="plano" class="form-control" required>
+              <select id="plano" class="form-select" required>
+                <option value="" disabled selected>Selecione um plano</option>
+                <option value="Mensal">Mensal</option>
+                <option value="Trimestre">Trimestre</option>
+                <option value="Semestral">Semestral</option>
+                <option value="Anual">Anual</option>
+              </select>
             </div>
             <div class="col-md-3">
               <label class="form-label">Contato</label>
@@ -61,10 +65,12 @@
       </div>
     </div>
 
-    <!-- Lista de clientes -->
     <div class="card shadow-lg border-0">
       <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-        <h4 class="mb-0"><i class="bi bi-people-fill"></i> Lista de Clientes</h4>
+        <h4 class="mb-0">
+          <i class="bi bi-people-fill"></i> Lista de Clientes
+          <span class="badge bg-light text-primary ms-2" id="totalClients">0</span>
+        </h4>
         <input type="text" id="search" class="form-control form-control-sm w-50" placeholder="Pesquisar cliente...">
       </div>
       <div class="card-body p-0">
