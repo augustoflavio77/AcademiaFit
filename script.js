@@ -3,6 +3,7 @@ const clientList = document.getElementById('clientList');
 const editIndex = document.getElementById('editIndex');
 const formTitle = document.getElementById('form-title');
 const searchInput = document.getElementById('search');
+const totalClients = document.getElementById('totalClients');
 
 function getClients() {
   return JSON.parse(localStorage.getItem('clients')) || [];
@@ -14,27 +15,29 @@ function saveClients(clients) {
 
 function renderClients(filter = "") {
   const clients = getClients();
+  const filteredClients = clients.filter(c => c.nome.toLowerCase().includes(filter.toLowerCase()));
+
   clientList.innerHTML = '';
-  clients
-    .filter(c => c.nome.toLowerCase().includes(filter.toLowerCase()))
-    .forEach((client, index) => {
-      clientList.innerHTML += `
-        <tr>
-          <td>${client.nome}</td>
-          <td>${client.idade}</td>
-          <td>${client.plano}</td>
-          <td>${client.contato}</td>
-          <td class="text-center">
-            <button class="btn btn-warning btn-sm me-2" onclick="editClient(${index})">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-            <button class="btn btn-danger btn-sm" onclick="deleteClient(${index})">
-              <i class="bi bi-trash-fill"></i>
-            </button>
-          </td>
-        </tr>
-      `;
-    });
+  filteredClients.forEach((client, index) => {
+    clientList.innerHTML += `
+      <tr>
+        <td>${client.nome}</td>
+        <td>${client.idade}</td>
+        <td>${client.plano}</td>
+        <td>${client.contato}</td>
+        <td class="text-center">
+          <button class="btn btn-warning btn-sm me-2" onclick="editClient(${index})">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+          <button class="btn btn-danger btn-sm" onclick="deleteClient(${index})">
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </td>
+      </tr>
+    `;
+  });
+
+  totalClients.textContent = filteredClients.length;
 }
 
 clientForm.addEventListener('submit', (e) => {
@@ -82,5 +85,4 @@ searchInput.addEventListener('input', (e) => {
   renderClients(e.target.value);
 });
 
-// Inicializa lista
 renderClients();
